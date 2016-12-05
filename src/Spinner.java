@@ -14,6 +14,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+/**
+ * A class representing spinners that have choices.
+ * The spinner can spin to make a choice for you.
+ * The choices for a spinner are mutable.
+ *
+ */
 public class Spinner extends JPanel {
 	
 	private double numberOfOptions;
@@ -26,6 +32,10 @@ public class Spinner extends JPanel {
 	
 	private Random gen;
 	
+	/**
+	 * Creates a pinwheel spinny thing with a specific set of choices.
+	 * @param choices The choices for this spinner.
+	 */
 	public Spinner(String[] choices) {
 		this.numberOfOptions = choices.length;
 		options = new HashMap<Integer, String>();
@@ -45,6 +55,10 @@ public class Spinner extends JPanel {
 		}
 	}	
 	
+	/**
+	 * Generates a random pretty pink pastel color.
+	 * @return The prettiest, pinkest, pastelest color you can imagine.
+	 */
 	private Color getRandomColor() {
 		float hue = gen.nextFloat();
 		float saturation = (gen.nextInt(2000) + 1000) / 10000f;
@@ -53,6 +67,9 @@ public class Spinner extends JPanel {
 		return color;
 	}
 	
+	/**
+	 * Spins the spinner and removes the selected choice.
+	 */
 	public void spinAndRemove() {
 		int angleToSpin = gen.nextInt(1080) + 1;
 		Timer t;
@@ -81,6 +98,9 @@ public class Spinner extends JPanel {
 		t.start();
 	}
 	
+	/**
+	 * Spins the spinner.
+	 */
 	public void spin() {
 		int angleToSpin = gen.nextInt(1080) + 1;
 		int index;
@@ -103,6 +123,9 @@ public class Spinner extends JPanel {
 		t.start();
 	}
 	
+	/**
+	 * Recolors every choice in the spinner.
+	 */
 	public void recolor() {
 		Color color;
 		colors = new HashMap<Integer, Color>();
@@ -115,6 +138,9 @@ public class Spinner extends JPanel {
 		repaint();
 	}
 	
+	/**
+	 * Paints a wonderful pinwheel.
+	 */
 	@Override 
 	public void paintComponent(Graphics g) {
 		g.clearRect(0, 0, this.getWidth(), this.getHeight());
