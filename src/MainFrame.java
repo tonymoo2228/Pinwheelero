@@ -11,6 +11,7 @@ import java.util.Random;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -42,6 +43,13 @@ public class MainFrame extends JFrame {
 	}
 	
 	public static void main(String[] args) {
+		if (args.length == 0) {
+			JFrame inputPrompt = new JFrame();
+			inputPrompt.setTitle("Please Enter Input");
+			inputPrompt.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			String choices = JOptionPane.showInputDialog(inputPrompt, "Please enter the comma-then-space-seperated choices.");
+			args = choices.split(", ");
+		}
 		MainFrame mf = new MainFrame(args);
 	}
 	
