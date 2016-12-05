@@ -53,7 +53,17 @@ public class Spinner extends JPanel {
 		return color;
 	}
 	
-	public void spinAndRemove() {
+	private void removeCurrent(int index) {
+		for (int i = index; i < numberOfOptions; i++) {
+			colors.put(i, colors.get(i+1));
+			options.put(i, options.get(i+1));
+		}
+		numberOfOptions--;
+		degreesPerOption = 360.0/numberOfOptions;
+		repaint();
+	}
+	
+	private void spinFunction(boolean remove) {
 		int angleToSpin = gen.nextInt(1080) + 1;
 		Timer t;
 		t = new Timer(10, null);
@@ -67,13 +77,9 @@ public class Spinner extends JPanel {
 		    	t.stop();
 				int index = (int) (numberOfOptions - Math.ceil(((angleSpun-45)%360)/degreesPerOption));
 				JOptionPane.showMessageDialog(new JFrame(), options.get(index));
-				for (int i = index; i < numberOfOptions; i++) {
-					colors.put(i, colors.get(i+1));
-					options.put(i, options.get(i+1));
+				if (remove) {
+					removeCurrent(index);
 				}
-				numberOfOptions--;
-				degreesPerOption = 360.0/numberOfOptions;
-				repaint();
 		    }
 		  }
 		};
@@ -81,26 +87,12 @@ public class Spinner extends JPanel {
 		t.start();
 	}
 	
+	public void spinAndRemove() {
+		spinFunction(true);
+	}
+	
 	public void spin() {
-		int angleToSpin = gen.nextInt(1080) + 1;
-		int index;
-		Timer t;
-		t = new Timer(10, null);
-		ActionListener taskPerformer = new ActionListener() {
-			int firecount = 0;
-			public void actionPerformed(ActionEvent evt) {        
-		    firecount++;
-			angleSpun++;
-			repaint();
-		    if ( firecount == angleToSpin ) {
-		    	t.stop();
-		    	int index = (int) (numberOfOptions - Math.ceil(((angleSpun-45)%360)/degreesPerOption));
-				JOptionPane.showMessageDialog(new JFrame(), options.get(index));
-			}
-		  }
-		};
-		t.addActionListener(taskPerformer);
-		t.start();
+		spinFunction(false);
 	}
 	
 	public void recolor() {
