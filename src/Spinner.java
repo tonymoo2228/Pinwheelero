@@ -94,6 +94,8 @@ public class Spinner extends JPanel {
 			repaint();
 		    if ( firecount == angleToSpin ) {
 		    	t.stop();
+		    	int index = (int) (numberOfOptions - Math.ceil(((angleSpun-45)%360)/degreesPerOption));
+				JOptionPane.showMessageDialog(new JFrame(), options.get(index));
 			}
 		  }
 		};
