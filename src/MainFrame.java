@@ -11,6 +11,9 @@ import java.util.Random;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -36,6 +39,18 @@ public class MainFrame extends JFrame {
 		
 		buttonPanel = new ButtonPanel(spinner);
 		content.add(buttonPanel, BorderLayout.NORTH);
+		JMenuBar menuBar = new JMenuBar();
+		JMenu killMenu = new JMenu("Kill Me");
+		JMenuItem killSwitch = new JMenuItem("Is Kill");
+		killSwitch.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				System.exit(0);
+			}
+		});
+		killMenu.add(killSwitch);
+		menuBar.add(killMenu);
+		setJMenuBar(menuBar);
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(500, 500 + buttonPanel.getHeight());
