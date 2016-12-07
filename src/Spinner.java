@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Arc2D;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -86,9 +87,9 @@ public class Spinner extends JPanel {
 	 * @param remove Whether or not to remove the result.
 	 */
 	private void spinFunction(boolean remove) {
-		int angleToSpin = gen.nextInt(1080) + 1;
+		int angleToSpin = gen.nextInt(720) + 180;
 		Timer t;
-		t = new Timer(10, null);
+		t = new Timer(5, null);
 		ActionListener taskPerformer = new ActionListener() {
 			int firecount = 0;
 			public void actionPerformed(ActionEvent evt) {        
@@ -158,7 +159,9 @@ public class Spinner extends JPanel {
 			yMax = (int) ((this.getHeight()/2.0) * Math.sin(Math.toRadians((i+.5) * degreesPerOption + angleSpun)));
 			FontMetrics metrics = g.getFontMetrics(g.getFont());
 			int adv = metrics.stringWidth(options.get(i))/2;
+			g2d.rotate(Math.toRadians(360.0 - ((i - 1) * degreesPerOption + angleSpun)), xCenter + xMax/2 - adv, yCenter - yMax/2);
 			g2d.drawString(options.get(i), xCenter + xMax/2 - adv, yCenter - yMax/2);
+			g2d.rotate(-Math.toRadians(360.0 - ((i - 1) * degreesPerOption + angleSpun)), xCenter + xMax/2 - adv, yCenter - yMax/2);
 		}
 		for (int i = 0; i < numberOfOptions; i++) {
 			xMax = (int) ((this.getWidth()/2.0) * Math.cos(Math.toRadians(i * degreesPerOption + angleSpun)));
